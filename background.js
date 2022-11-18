@@ -11,6 +11,7 @@ export class Background{
     update(){
         if (this.y > this.height){
             this.y = 0
+            this.game.add_platforms(-this.height, -15)
         }else {
             this.y += 3
         }
