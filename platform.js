@@ -16,7 +16,7 @@ export class Platform{
            if (this.x < 0 || this.x > this.game.width-this.width) this.vx *= -1
        }
         this.x +=this.vx
-        this.y += 3
+        this.y += this.game.vy
 
         if (this.y >= this.game.height){
             this.markedForDeletion = true

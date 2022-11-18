@@ -1,6 +1,8 @@
 import {Background} from "./background.js";
 import {InputHandler} from "./input.js";
 import {Platform} from "./platform.js";
+import {Player} from "./player.js";
+
 
 window.addEventListener('load', ()=>{
     const canvas = document.querySelector("#canvas1")
@@ -12,14 +14,18 @@ window.addEventListener('load', ()=>{
         constructor(width, height) {
             this.width = width
             this.height = height
+            this.vy = 0
+            this.gameOver = false
             this.gameStart = false
             this.platforms = []
+            this.score = 0
             this.platform_gap = 85
             this.blue_white_platform_chance = 50
             this.object_vx = 3
             this.add_platforms(0,this.height-15)
             this.add_platforms(-this.height,-15)
             this.background = new Background(this)
+            this.player = new Player(this)
             this.inputHandler = new InputHandler(this)
         }
         update() {
@@ -28,6 +34,8 @@ window.addEventListener('load', ()=>{
             this.platforms.forEach(platform =>{
                 platform.update()
             })
+
+            this.player.update(this.inputHandler)
 
             this.platforms = this.platforms.filter(platform => !platform.markedForDeletion)
         }
@@ -44,6 +52,18 @@ window.addEventListener('load', ()=>{
                 this.platforms.forEach(platform =>{
                     platform.draw(context)
                 })
+                this.player.draw(context)
+            }
+            context.fillStyle = "black"
+            context.font = "20px Arial"
+            context.textAlign = "start"
+            context.fillText(`Score: ${this.score}`, 20, 40)
+
+            if (this.gameOver){
+                context.font = "bolt 25px Helvetica"
+                context.fillStyle = "red"
+                context.textAlign = "center"
+                context.fillText(`GAME OVER`,this.width*0.5, this.height*0.5)
             }
         }
 
@@ -65,7 +85,7 @@ window.addEventListener('load', ()=>{
         ctx.clearRect(0,0,canvas.width,canvas.height)
         if (game.gameStart) game.update()
         game.draw(ctx)
-        requestAnimationFrame(animated)
+        if (!game.gameOver) requestAnimationFrame(animated)
     }
     animated()
 })
