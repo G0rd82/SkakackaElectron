@@ -31,8 +31,8 @@ export class Player{
             let platformType = this.onPlatform()
             if (platformType=="white" || platformType=="blue" || platformType=="green") this.vy = this.min_vy
 
-            if (platformType =="white") new Audio("single_jump.mp3").play()
-            else if (platformType=="blue" || platformType=="green") new Audio("single_jump.mp3").play()
+            if (platformType =="white") new Audio("sound effects_jump.wav").play()
+            else if (platformType=="blue" || platformType=="green") new Audio("sound effects_jump.wav").play()
         }
 
         if(this.vy < this.max_vy) this.vy += this.weight
@@ -41,6 +41,11 @@ export class Player{
         if (this.y <= this.min_y && this.vy < this.weight) this.game.vy = -this.vy
         else this.game.vy = 0
 
+
+        if (this.y > this.game.height && !this.game.gameOver){
+            this.game.gameOver = true
+
+        }
 
     }
     draw(context){
@@ -54,7 +59,7 @@ export class Player{
         let playerHitBox = {x:this.x + 15, y:this.y, width:this.width - 30, height:this.height}
 
         this.game.platforms.forEach((platform) =>{
-            const X_test = (playerHitBox.x > platform.x && playerHitBox.x < platform.x + platform.width) || (playerHitBox.x + playerHitBox.width || platform.x && playerHitBox.x + playerHitBox.width < platform.x+platform.width)
+            const X_test = (playerHitBox.x > platform.x && playerHitBox.x < platform.x + platform.width) || (playerHitBox.x + playerHitBox.width > platform.x && playerHitBox.x + playerHitBox.width < platform.x+platform.width)
             const Y_test = (platform.y - (playerHitBox.y + playerHitBox.height) <= 0) && (platform.y - (playerHitBox.y+playerHitBox.height) >= -platform.height)
 
             if (X_test && Y_test){

@@ -10,6 +10,10 @@ export class InputHandler{
             if (e.key=="Enter"){
                 this.game.gameStart = true
             }
+            if (e.key=="r"){
+                this.game.gameRestart = true
+            }
+
         })
         window.addEventListener("keyup", (e)=> {
             if ((e.key == "ArrowLeft" || e.key == "ArrowRight") && this.keys.includes(e.key)) {

@@ -16,6 +16,7 @@ export class Background{
             this.y += this.game.vy
             this.game.score += Math.trunc(this.game.vy * 0.1)
         }
+
     }
     draw(context){
         context.drawImage(this.image, this.x, this.y, this.width,this.height)

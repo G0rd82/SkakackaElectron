@@ -27,6 +27,7 @@ window.addEventListener('load', ()=>{
             this.background = new Background(this)
             this.player = new Player(this)
             this.inputHandler = new InputHandler(this)
+
         }
         update() {
             this.background.update()
@@ -59,11 +60,14 @@ window.addEventListener('load', ()=>{
             context.textAlign = "start"
             context.fillText(`Score: ${this.score}`, 20, 40)
 
+
             if (this.gameOver){
-                context.font = "bolt 25px Helvetica"
+                context.font = "bold 25px Helvetica"
                 context.fillStyle = "red"
                 context.textAlign = "center"
                 context.fillText(`GAME OVER`,this.width*0.5, this.height*0.5)
+                context.fillText(`Press r to restart`,this.width*0.5, this.height*0.5 + 50)
+
             }
         }
 
