@@ -17,6 +17,7 @@ window.addEventListener('load', ()=>{
             this.vy = 0
             this.gameOver = false
             this.gameStart = false
+            this.gameRestart = false
             this.platforms = []
             this.score = 0
             this.platform_gap = 85
@@ -42,7 +43,7 @@ window.addEventListener('load', ()=>{
         }
         draw(context){
             this.background.draw(context)
-
+            console.log("tadan")
             if (!this.gameStart){
                 context.font = "bold 25px Helvetica"
                 context.fillStyle = "black"
@@ -50,15 +51,15 @@ window.addEventListener('load', ()=>{
                 context.fillText("PRESS ENTER TO START", this.width*0.5, this.height*0.5)
             }
             else {
-                this.platforms.forEach(platform =>{
-                    platform.draw(context)
-                })
-                this.player.draw(context)
+                this.restart(context)
             }
+
+
             context.fillStyle = "black"
             context.font = "20px Arial"
             context.textAlign = "start"
             context.fillText(`Score: ${this.score}`, 20, 40)
+
 
 
             if (this.gameOver){
@@ -67,8 +68,19 @@ window.addEventListener('load', ()=>{
                 context.textAlign = "center"
                 context.fillText(`GAME OVER`,this.width*0.5, this.height*0.5)
                 context.fillText(`Press r to restart`,this.width*0.5, this.height*0.5 + 50)
-
+                if (this.gameRestart) {
+                    this.gameOver = false
+                    this.gameRestart = false
+                    this.draw(context)
+                    console.log("ahoj")
+                }
             }
+        }
+        restart(context){
+            this.platforms.forEach(platform =>{
+                platform.draw(context)
+            })
+            this.player.draw(context)
         }
 
         add_platforms(lowerY, upperY){
@@ -87,9 +99,9 @@ window.addEventListener('load', ()=>{
 
     function animated(){
         ctx.clearRect(0,0,canvas.width,canvas.height)
-        if (game.gameStart) game.update()
+        /*if (game.gameStart)*/ game.update()
         game.draw(ctx)
-        if (!game.gameOver) requestAnimationFrame(animated)
+        /*if (!game.gameOver)*/ requestAnimationFrame(animated)
     }
     animated()
 })

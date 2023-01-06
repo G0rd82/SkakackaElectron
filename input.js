@@ -12,6 +12,7 @@ export class InputHandler{
             }
             if (e.key=="r"){
                 this.game.gameRestart = true
+                console.log(this.game.gameOver)
             }
 
         })

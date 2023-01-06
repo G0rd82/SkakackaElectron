@@ -44,7 +44,6 @@ export class Player{
 
         if (this.y > this.game.height && !this.game.gameOver){
             this.game.gameOver = true
-
         }
 
     }
