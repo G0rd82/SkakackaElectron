@@ -12,9 +12,9 @@ export class Platform{
     }
 
     update(){
-       if (this.type=="blue"){
-           if (this.x < 0 || this.x > this.game.width-this.width) this.vx *= -1
-       }
+        if (this.type=="blue"){
+            if (this.x < 0 || this.x > this.game.width-this.width) this.vx *= -1
+        }
         this.x +=this.vx
         this.y += this.game.vy
 

@@ -14,6 +14,15 @@ export class Player{
         this.image =document.querySelector("#tadan")
         this.vx = 0
         this.max_vx = 8
+        this.skins = [
+            "Luky.png",
+            "JohnKrausner.png",
+            "capybara.png",
+        ]
+
+    }
+    changeSkin(skinName) {
+        document.getElementById("tadan").src = "./skins/" + skinName
 
     }
     update(inputHandler){
@@ -44,6 +53,7 @@ export class Player{
 
         if (this.y > this.game.height && !this.game.gameOver){
             this.game.gameOver = true
+
         }
 
     }

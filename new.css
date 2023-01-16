@@ -12,6 +12,10 @@
     max-width: 100%;
     max-height: 100%;
 }
-#bg, #tadan, #green_platform, #blue_platform, #white_platform{
+#bg, #green_platform, #blue_platform, #white_platform, #shop_icon, #tadan, #luky, #capybara, #john{
     display: none;
+}
+
+#shop_icon {
+    cursor: pointer;
 }

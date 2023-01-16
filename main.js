@@ -17,7 +17,7 @@ window.addEventListener('load', ()=>{
             this.vy = 0
             this.gameOver = false
             this.gameStart = false
-            this.gameRestart = false
+            this.gameRestart = false;
             this.platforms = []
             this.score = 0
             this.platform_gap = 85
@@ -28,7 +28,6 @@ window.addEventListener('load', ()=>{
             this.background = new Background(this)
             this.player = new Player(this)
             this.inputHandler = new InputHandler(this)
-
         }
         update() {
             this.background.update()
@@ -40,26 +39,47 @@ window.addEventListener('load', ()=>{
             this.player.update(this.inputHandler)
 
             this.platforms = this.platforms.filter(platform => !platform.markedForDeletion)
+            if (game.gameRestart) {
+                game.width = game.width
+                game.height = game.height
+                game.vy = 0
+                game.gameOver = false
+                game.gameStart = false
+                game.gameRestart = false;
+                game.platforms = []
+                game.score = 0
+                game.platform_gap = 85
+                game.blue_white_platform_chance = 50
+                game.object_vx = 3
+                game.add_platforms(0,this.height-15)
+                game.add_platforms(-this.height,-15)
+                game.background = new Background(this)
+                game.player = new Player(this)
+                game.inputHandler = new InputHandler(this)
+            }
         }
         draw(context){
             this.background.draw(context)
-            console.log("tadan")
+
             if (!this.gameStart){
                 context.font = "bold 25px Helvetica"
                 context.fillStyle = "black"
                 context.textAlign = "center"
                 context.fillText("PRESS ENTER TO START", this.width*0.5, this.height*0.5)
+                context.font = "bold 14px Helvetica"
+                context.fillText("PRESS ARROWS TO CHANGE SKIN", this.width*0.5, this.height*0.5 + 20)
+                this.player.draw(context)
             }
             else {
-                this.restart(context)
+                this.platforms.forEach(platform =>{
+                    platform.draw(context)
+                })
+                this.player.draw(context)
             }
-
-
             context.fillStyle = "black"
             context.font = "20px Arial"
             context.textAlign = "start"
             context.fillText(`Score: ${this.score}`, 20, 40)
-
 
 
             if (this.gameOver){
@@ -68,19 +88,8 @@ window.addEventListener('load', ()=>{
                 context.textAlign = "center"
                 context.fillText(`GAME OVER`,this.width*0.5, this.height*0.5)
                 context.fillText(`Press r to restart`,this.width*0.5, this.height*0.5 + 50)
-                if (this.gameRestart) {
-                    this.gameOver = false
-                    this.gameRestart = false
-                    this.draw(context)
-                    console.log("ahoj")
-                }
+
             }
-        }
-        restart(context){
-            this.platforms.forEach(platform =>{
-                platform.draw(context)
-            })
-            this.player.draw(context)
         }
 
         add_platforms(lowerY, upperY){
@@ -99,9 +108,9 @@ window.addEventListener('load', ()=>{
 
     function animated(){
         ctx.clearRect(0,0,canvas.width,canvas.height)
-        /*if (game.gameStart)*/ game.update()
+        if (game.gameStart) game.update()
         game.draw(ctx)
-        /*if (!game.gameOver)*/ requestAnimationFrame(animated)
+        requestAnimationFrame(animated)
     }
     animated()
 })
