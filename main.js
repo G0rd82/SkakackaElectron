@@ -63,11 +63,11 @@ window.addEventListener('load', ()=>{
 
             if (!this.gameStart){
                 context.font = "bold 25px Helvetica"
-                context.fillStyle = "black"
+                context.fillStyle = "red"
                 context.textAlign = "center"
                 context.fillText("PRESS ENTER TO START", this.width*0.5, this.height*0.5)
-                context.font = "bold 14px Helvetica"
-                context.fillText("PRESS ARROWS TO CHANGE SKIN", this.width*0.5, this.height*0.5 + 20)
+                context.font = "bold 18px Helvetica"
+                context.fillText("Press ARROWS to change skin", this.width*0.5, this.height*0.5 + 50)
                 this.player.draw(context)
             }
             else {
@@ -76,7 +76,7 @@ window.addEventListener('load', ()=>{
                 })
                 this.player.draw(context)
             }
-            context.fillStyle = "black"
+            context.fillStyle = "white"
             context.font = "20px Arial"
             context.textAlign = "start"
             context.fillText(`Score: ${this.score}`, 20, 40)

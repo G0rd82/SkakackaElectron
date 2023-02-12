@@ -18,6 +18,7 @@ export class Player{
             "Luky.png",
             "JohnKrausner.png",
             "capybara.png",
+            "tadan.png",
         ]
 
     }
